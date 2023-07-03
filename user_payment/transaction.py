@@ -122,4 +122,4 @@ def GenerateToken(payload: Dict) -> Dict:
     res = requests.post(url, headers=headers, data=data)
     if res.status_code == 200:
         return res.json()
-    return {}
+    return res.json()
