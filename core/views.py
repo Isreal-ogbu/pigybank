@@ -19,6 +19,7 @@ class CurrencySerializersApiView(ResponseModelViewSet):
     serializer_class = CurrencySerializers
     permission_classes = (SuperAdminPermission,)
 
+
     def get_permissions(self):
         print(self.request.user.is_staff, self.action)
         if self.action in ['list', 'retrieve']:

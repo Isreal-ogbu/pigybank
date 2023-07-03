@@ -169,7 +169,10 @@ REST_FRAMEWORK = {
         'anon': '100/second',
         'user': '100/second',
     },
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
 }
 
 REST_KNOX = {
