@@ -3,7 +3,7 @@
 .venv
 .idea
 idea/
-env/
+/env/
 venv/
 ENV/
 env.bak/
