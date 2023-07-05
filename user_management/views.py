@@ -12,6 +12,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.response import Response
 from knox.views import LoginView as KnoxLogin, LogoutView as KnoxLogout, LogoutAllView
+from rest_framework.views import APIView
 
 from .serializers import UserSerializer, ReadUserSerializer, LoginSerializer, EmailVerificationSerializer, \
     SetPasswordSerializer, Emailserialisers
@@ -177,21 +178,35 @@ class ReverificationViewSet(ResponseAPIView):
 
 
 class SetPasswordView(ResponseAPIView):
-    queryset = User.objects.all()
     serializer_class = SetPasswordSerializer
+    http_method_names = ['post']
 
-    def post(self, request, **kwargs):
-        print(request)
+    @transaction.atomic
+    def post(self, request, user_id, format=None):
         try:
-            user = kwargs.pop('pri_key', None)
-            obj = User.objects.get(id=user)
+            obj = User.objects.get(id=user_id)
             """Configured the default password so it will not be exposed cause it is saving as blank"""
             if obj.password != config("DEFAULT_PASSWORD"): raise Exception('Password has already been set')
             serializer = self.get_serializer(data=request.data, instance=obj)
             serializer.is_valid(raise_exception=True)
             serializer.save()
         except Exception as e:
-            self.response_format['message'] = error_handler(e)
-            return Response(self.response_format, status=status.HTTP_400_BAD_REQUEST)
+            e = error_handler(e)
+            return Response(
+                {
+                    "status": 'Success',
+                    "data": e,
+                    "message": 'Success'
+                }, status=status.HTTP_200_OK
+            )
 
-        return Response(self.response_format, status=status.HTTP_200_OK)
+        return Response(
+            {
+                "status": 'Success',
+                "data": serializer.data,
+                "message": 'Success'
+            }, status=status.HTTP_200_OK
+        )
+
+    def get(self, request, uuid, format=None):
+        return Response(status=status.HTTP_200_OK)

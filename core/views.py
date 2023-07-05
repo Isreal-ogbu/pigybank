@@ -66,7 +66,7 @@ class TransactionViewSetApiView(ResponseModelViewSet):
 
 
 class TransactionReportApiView(ResponseAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AuthenticatedUserPermission,)
 
     def get(self, request):
         personal_report = ReportParamSerializers(data=request.GET, context={'request': request})
