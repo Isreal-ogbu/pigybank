@@ -22,7 +22,7 @@ class BalanceViewset(ResponseAPIView):
         self.response_format['data'] = serializer.data
         return Response(self.response_format, self.status_code)
 
-    def get(self, request, **kwargs):
+    def get(self, request, pk, **kwargs):
         return super().get_object()
 
 
@@ -31,7 +31,7 @@ class InvestmentRecordViewSet(ResponseModelViewSet):
     permission_classes = (AuthenticatedUserPermission,)
 
     def get_queryset(self):
-        return InvestmentRecord.objects.select_related('user', 'option').filter(user=self.request.user)
+        return InvestmentRecord.objects.select_related('user', 'options').filter(user=self.request.user)
 
 
 class InvestTypeViewSet(ResponseModelViewSet):

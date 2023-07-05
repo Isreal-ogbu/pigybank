@@ -4,24 +4,26 @@ from user_invest.models import UserInvestmentBalance, InvestmentRecord, InvestOp
 
 
 class InvestmentSerializers(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
-        models = UserInvestmentBalance
+        model = UserInvestmentBalance
         fields = "__all__"
 
 
 class RecordSerializers(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
-        models = InvestmentRecord
+        model = InvestmentRecord
         fields = "__all__"
 
 
 class InvestOptionsSerializers(serializers.ModelSerializer):
     class Meta:
-        models = InvestOptions
+        model = InvestOptions
         fields = "__all__"
 
 
 class InvestmentTypeSerializers(serializers.ModelSerializer):
     class Meta:
-        models = InvestmentType
+        model = InvestmentType
         fields = "__all__"

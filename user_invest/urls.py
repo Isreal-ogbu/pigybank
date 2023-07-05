@@ -11,5 +11,5 @@ router.register('type', views.InvestTypeViewSet, basename='investment_type')
 router.register('record', views.InvestmentRecordViewSet, basename='investment_record')
 
 urlpatterns = [
-    url(r'^payment_successful/$', views.BalanceViewset.as_view(), name="payment_success"),
+    url(r'^balance/$', views.BalanceViewset.as_view(), name="balance"),
 ] + router.urls

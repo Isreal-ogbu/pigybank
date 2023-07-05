@@ -18,7 +18,7 @@ class Currency(models.Model):
 class Catagory(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='catagories')
-    name = models.CharField(max_length=32, blank=True)
+    name = models.CharField(max_length=32, unique=True)
 
     def __str__(self):
         return self.name

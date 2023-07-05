@@ -161,7 +161,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 50,
+    'PAGE_SIZE': 10,
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
         'rest_framework.throttling.UserRateThrottle',
@@ -181,9 +181,9 @@ REST_FRAMEWORK = {
 
 CACHES = {
     'default': {
-         "BACKEND":'django.core.cache.backends.db.DatabaseCache',
-        "LOCATION":'my_cache_table'
-         }
+        "BACKEND": 'django.core.cache.backends.db.DatabaseCache',
+        "LOCATION": 'my_cache_table'
+    }
 }
 
 REST_KNOX = {
