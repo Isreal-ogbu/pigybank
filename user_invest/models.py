@@ -41,7 +41,7 @@ class UserInvestmentBalance(CommonFields):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     balance = models.BigIntegerField(default=0)
     exp_rio = models.CharField(max_length=6)
-    records = models.ForeignKey(InvestOptions, on_delete=models.PROTECT)
+    records = models.ForeignKey(InvestmentRecord, on_delete=models.PROTECT)
 
     def __int__(self):
         return f"{self.records.user.username}"
