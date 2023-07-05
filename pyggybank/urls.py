@@ -9,6 +9,7 @@ urlpatterns = [
     path('api/n/', include('user_components.urls')),
     path('api/p/', include('user_payment.urls')),
     path('api/u/', include('user_management.urls')),
+    path('api/i/', include('user_invest.urls')),
     path('api/admin/', admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
