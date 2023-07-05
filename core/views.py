@@ -5,7 +5,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from utils.util import ResponseModelViewSet
+from utils.util import ResponseModelViewSet, ResponseAPIView
 from utils.permissions import SuperAdminPermission, AdminUserPermission, AuthenticatedUserPermission
 
 from core.models import Currency
@@ -21,7 +21,6 @@ class CurrencySerializersApiView(ResponseModelViewSet):
 
 
     def get_permissions(self):
-        print(self.request.user.is_staff, self.action)
         if self.action in ['list', 'retrieve']:
             return [SuperAdminPermission() and AdminUserPermission() and AuthenticatedUserPermission()]
         elif self.action in ['create', 'update']:
@@ -37,7 +36,6 @@ class CatagoryViewSetApiView(ResponseModelViewSet):
         return self.request.user.catagories.select_related('user').filter(user=self.request.user)
 
     def get_permissions(self):
-        print(self.request.user.is_staff, self.action)
         if self.action in ['list', 'retrieve']:
             return [SuperAdminPermission() and AdminUserPermission() and AuthenticatedUserPermission()]
         elif self.action in ['create', 'update']:
@@ -61,7 +59,6 @@ class TransactionViewSetApiView(ResponseModelViewSet):
             user=self.request.user).order_by('-date')
 
     def get_permissions(self):
-        print(self.request.user.is_staff, self.action)
         if self.action in ['list', 'retrieve']:
             return [SuperAdminPermission() and AdminUserPermission() and AuthenticatedUserPermission()]
         elif self.action in ['create', 'update']:
@@ -69,7 +66,7 @@ class TransactionViewSetApiView(ResponseModelViewSet):
         return super().get_permissions()
 
 
-class TransactionReportApiView(APIView):
+class TransactionReportApiView(ResponseAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
@@ -78,11 +75,5 @@ class TransactionReportApiView(APIView):
         param = personal_report.save()
         data = transaction_report(param)
         serializers = ReportEntrySerializers(instance=data, many=True)
-        return Response(
-            {
-                "status": 'Success',
-                "data": serializers.data,
-                "message": 'Success'
-            }, status=status.HTTP_200_OK
-        )
-
+        self.response_format['data'] = serializers.data
+        return Response(self.response_format, self.status_code)

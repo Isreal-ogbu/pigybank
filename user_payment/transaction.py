@@ -67,9 +67,11 @@ def paymentDepositTransaction(payload) -> Dict:
 
 
 def ValidateSuggestedAuth(payload) -> Dict:
-    """We want to validate by pin or by address from the payload"""
+    """We want to validate by pin or by address from the payload,
+    send back that payload from the initilised pay process.
+    """
     try:
-        appUser = UserPayment.objects.get(app_user=payload['user'], txf__exact=payload['txRef'])
+        appUser = UserPayment.objects.get(app_user__exact=payload['user'], txf__exact=payload['txRef'])
     except Exception as e:
         return {'error': e}
     try:
