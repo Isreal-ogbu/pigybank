@@ -179,9 +179,9 @@ class ReverificationViewSet(ResponseAPIView):
 class SetPasswordView(ResponseAPIView):
     queryset = User.objects.all()
     serializer_class = SetPasswordSerializer
+    permission_classes=()
 
     def post(self, request, **kwargs):
-        print(request)
         try:
             user = kwargs.pop('pri_key', None)
             obj = User.objects.get(id=user)
