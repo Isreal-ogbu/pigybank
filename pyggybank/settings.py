@@ -167,8 +167,8 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '100/second',
-        'user': '100/second',
+        'anon': '30/minute',
+        'user': '30/minute',
     },
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     'DEFAULT_RENDERER_CLASSES': [
@@ -177,6 +177,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
     ]
+}
+
+CACHES = {
+    'default': {
+         "BACKEND":'django.core.cache.backends.db.DatabaseCache',
+        "LOCATION":'my_cache_table'
+         }
 }
 
 REST_KNOX = {
