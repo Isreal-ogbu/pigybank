@@ -8,6 +8,9 @@ from user_payment.data_class import paymentPayloadInfo
 """So this is still under development and not for the hackathon"""
 
 load_dotenv()
+# import environ
+# env=environ.Env()
+# environ.Env.read_env()
 
 rave = Rave(config('RAVE_PUBLIC_KEY'), config('RAVE_SECRET_KEY'))
 

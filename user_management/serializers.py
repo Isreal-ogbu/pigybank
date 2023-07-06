@@ -112,8 +112,10 @@ class SetPasswordSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         if validated_data['new_password'] != validated_data['confirm_password']:
             raise Exception("password fields don't match")
-
+        print(instance.password)
+        print(validated_data['new_password'])
         instance.set_password(validated_data['new_password'])
+        print(instance.password)
         instance.save()
         return instance
 
