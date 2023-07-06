@@ -11,6 +11,7 @@ load_dotenv()
 
 rave = Rave(config('RAVE_PUBLIC_KEY'), config('RAVE_SECRET_KEY'))
 
+"""Still under development"""
 
 def PaymentTransferTransaction(payload) -> Dict:
     """We will make this for collecting the tresaction payload"""

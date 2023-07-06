@@ -5,8 +5,9 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 
-# router.register('record', views.RecordsViewSet, basename='user')
-router.register('status', views.TokenViewSet, basename='register')
+"""Still Under development"""
+
+router.register('status', views.TokenViewSet, basename='status')
 
 urlpatterns = [
     url(r'^payment_successful/$', views.PaymentSuccessViewset.as_view(), name="payment_success"),

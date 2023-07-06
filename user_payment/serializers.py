@@ -2,6 +2,7 @@ from rest_framework import serializers
 from user_payment.data_class import paymentPayloadInfo
 from user_payment.models import UserPayment
 
+"""Still Under development"""
 
 class PaymentSerializers(serializers.Serializer):
     cardno = serializers.CharField(max_length=16, min_length=16)

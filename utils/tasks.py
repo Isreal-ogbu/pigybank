@@ -5,6 +5,7 @@ from decouple import config
 from user_payment.data_class import paymentPayloadInfo
 
 """We need to break down this step into three endpoint"""
+"""So this is still under development and not for the hackathon"""
 
 load_dotenv()
 
@@ -48,8 +49,4 @@ def PaymentTransferTransaction(payload) -> Dict:
     except RaveExceptions.IncompletePaymentDetailsError as e:
         print(e.err["errMsg"])
         print(e.err["errMsg"])
-    pass
-
-
-def paymentDepositTransaction():
     pass
