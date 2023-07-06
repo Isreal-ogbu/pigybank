@@ -1,6 +1,6 @@
 import datetime
 import uuid
-
+from django.shortcuts import get_object_or_404
 from decouple import config
 from django.conf import settings
 from django.contrib.auth import get_user_model, logout
@@ -29,9 +29,12 @@ class UserViewSet(ResponseModelViewSet):
     serializer_class = ReadUserSerializer
     permission_classes = [IsAuthenticated, ]
     pagination_class = None
+    
 
     def get_queryset(self):
-        return User.objects.get(id=self.request.user.id)
+        return User.objects.filter(id=self.request.user.id).all()
+    
+    
 
 
 class UsersSerializerViewSet(ResponseModelViewSet):
@@ -186,7 +189,7 @@ class SetPasswordView(ResponseAPIView):
         try:
             obj = User.objects.get(id=user_id)
             """Configured the default password so it will not be exposed cause it is saving as blank"""
-            if obj.password != config("DEFAULT_PASSWORD"): raise Exception('Password has already been set')
+            # if obj.password != config("DEFAULT_PASSWORD"): raise Exception('Password has already been set')
             serializer = self.get_serializer(data=request.data, instance=obj)
             serializer.is_valid(raise_exception=True)
             serializer.save()

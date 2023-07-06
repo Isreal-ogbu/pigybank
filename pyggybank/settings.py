@@ -17,6 +17,10 @@ from datetime import timedelta
 from decouple import config
 from rest_framework.settings import api_settings
 
+# import environ
+# env=environ.Env()
+# environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,7 +33,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['482f-102-89-42-236.ngrok-free.app', '127.0.0.1']
+ALLOWED_HOSTS = ['ec84-197-211-58-197.ngrok-free.app', '127.0.0.1']
 
 # Application definition
 
@@ -65,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -167,8 +172,8 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '30/minute',
-        'user': '30/minute',
+        'anon': '5/minute',
+        'user': '5/minute',
     },
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     'DEFAULT_RENDERER_CLASSES': [
@@ -200,3 +205,25 @@ TREBLLE_INFO = {
     'api_key': config('TREBLLE_API_KEY'),
     'project_id': config('TREBLLE_PROJECT_ID')
 }
+
+
+
+SECURE_BROWSER_XSS_FILTER=True
+SECURE_CONTENT_TYPE_NOSNIFF=True
+CSRF_COOKIE_SECURE=True
+SESSION_COOKIE_SECURE=True
+SECURE_HSTS_SECONDS = 1576800
+X_FRAME_OPTIONS='DENY'
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SESSION_COOKIE_SAMESITE='Strict'
+SECURE_SSL_REDIRECT = True
+
+CSP_DEFAULT_SRC=("'self'",'none')
+CSP_STYLE_SRC=("'self'",)
+CSP_SCRIPT_SRC=("'self'",)
+CSP_IMG_SRC=("'self'",)
+CSP_FONT_SRC=("'self'",)
+CSP_MEDIA_SRC=("'self'",)
+CSP_BASE_URI=("'self'",)

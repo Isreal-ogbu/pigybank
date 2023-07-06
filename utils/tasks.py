@@ -7,6 +7,9 @@ from user_payment.data_class import paymentPayloadInfo
 """We need to break down this step into three endpoint"""
 
 load_dotenv()
+# import environ
+# env=environ.Env()
+# environ.Env.read_env()
 
 rave = Rave(config('RAVE_PUBLIC_KEY'), config('RAVE_SECRET_KEY'))
 
