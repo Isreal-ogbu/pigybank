@@ -33,7 +33,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ec84-197-211-58-197.ngrok-free.app', '127.0.0.1']
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -216,7 +216,6 @@ X_FRAME_OPTIONS = 'DENY'
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SESSION_COOKIE_SAMESITE = 'Strict'
-SECURE_SSL_REDIRECT = True
 
 CSP_DEFAULT_SRC = ("'self'", 'none')
 CSP_STYLE_SRC = ("'self'",)

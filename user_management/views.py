@@ -28,12 +28,9 @@ class UserViewSet(ResponseModelViewSet):
     serializer_class = ReadUserSerializer
     permission_classes = [IsAuthenticated, ]
     pagination_class = None
-    
 
     def get_queryset(self):
         return User.objects.filter(id=self.request.user.id).all()
-    
-    
 
 
 class UsersSerializerViewSet(ResponseModelViewSet):
