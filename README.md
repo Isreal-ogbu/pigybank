@@ -38,7 +38,28 @@ create a file, call it `.env`. Input the below with appropriate values:
 2. `TREBLLE_API_KEY`
 3. `TREBLLE_PROJECT_ID`
 
-**Note: There are some sensitive variable that are not provided in this repo as a result of privacy. We intended depricating it
-  so it does not affect the application or make the code break.
+**Note: There are some variables in the .env file which can be set to `null`.
+1. RAVE_PUBLIC_KEY = null 
+2. RAVE_SECRET_KEY = null
+3. DEFAULT_PASSWORD = ''
+***
+We intend implementing a payment solution for the project, but we decided not to due to the complexity.
+The entire end points from the `user_payment` app is no more meant for the hackathon.
+***
+#### Available endpoints are:
+
+localhost:8000 or 127.0.0.1:8000/
+
+1. api/c/catagories/
+2. api/c/transactions/
+3. api/c/currencies/
+4. api/c/report/
+5. api/u/register/
+6. api/u/login/
+7. api/u/logout/
+8. api/u/verify-email/
+9. api/u/set-password/ ......and lot more.
+
+**Please note again: The `user_payment` applications urls are not currently working.
 ***
 
