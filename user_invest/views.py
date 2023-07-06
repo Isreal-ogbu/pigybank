@@ -16,7 +16,7 @@ class BalanceViewset(ResponseAPIView):
         return UserInvestmentBalance.objects.select_related('user', 'records').filter(user=self.request.user)
 
     def post(self, request, **kwargs):
-        serializer = self.get_serializer(data=request.data, context={'request': request})
+        serializer = InvestmentSerializers(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
         self.response_format['data'] = serializer.data
