@@ -7,12 +7,11 @@ from django.contrib.auth import get_user_model, logout
 from django.contrib.auth import login as django_login, logout as django_logout
 from django.db import transaction
 from rest_framework import status
-from rest_framework.decorators import action
+
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.response import Response
-from knox.views import LoginView as KnoxLogin, LogoutView as KnoxLogout, LogoutAllView
-from rest_framework.views import APIView
+from knox.views import LoginView as KnoxLogin, LogoutView as KnoxLogout
 
 from .serializers import UserSerializer, ReadUserSerializer, LoginSerializer, EmailVerificationSerializer, \
     SetPasswordSerializer, Emailserialisers
@@ -194,22 +193,10 @@ class SetPasswordView(ResponseAPIView):
             serializer.is_valid(raise_exception=True)
             serializer.save()
         except Exception as e:
-            e = error_handler(e)
-            return Response(
-                {
-                    "status": 'Success',
-                    "data": e,
-                    "message": 'Success'
-                }, status=status.HTTP_200_OK
-            )
+            self.response_format['message'] = error_handler(e)
+            return Response(self.response_format, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(
-            {
-                "status": 'Success',
-                "data": serializer.data,
-                "message": 'Success'
-            }, status=status.HTTP_200_OK
-        )
+        return Response(self.response_format, status=status.HTTP_200_OK)
 
     def get(self, request, uuid, format=None):
         return Response(status=status.HTTP_200_OK)
