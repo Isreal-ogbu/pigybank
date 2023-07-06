@@ -58,8 +58,9 @@ localhost:8000 or 127.0.0.1:8000/
 6. api/u/login/
 7. api/u/logout/
 8. api/u/verify-email/
-9. api/u/set-password/ ......and lot more.
+9. api/n/notification/ 
+10. api/u/set-password/ ......and lot more.
 
-**Please note again: The `user_payment` applications urls are not currently working.
+** Please note again: The `user_payment` applications urls are not currently working.
 ***
 
