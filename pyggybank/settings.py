@@ -17,9 +17,9 @@ from datetime import timedelta
 from decouple import config
 from rest_framework.settings import api_settings
 
-import environ
-env=environ.Env()
-environ.Env.read_env()
+# import environ
+# env=environ.Env()
+# environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,7 +33,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['482f-102-89-42-236.ngrok-free.app', '127.0.0.1']
+ALLOWED_HOSTS = ['ec84-197-211-58-197.ngrok-free.app', '127.0.0.1']
 
 # Application definition
 
@@ -202,8 +202,8 @@ REST_KNOX = {
 }
 
 TREBLLE_INFO = {
-    'api_key': env('TREBLLE_API_KEY'),
-    'project_id': env('TREBLLE_PROJECT_ID')
+    'api_key': config('TREBLLE_API_KEY'),
+    'project_id': config('TREBLLE_PROJECT_ID')
 }
 
 
@@ -218,7 +218,7 @@ X_FRAME_OPTIONS='DENY'
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SESSION_COOKIE_SAMESITE='Strict'
-# SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = True
 
 CSP_DEFAULT_SRC=("'self'",'none')
 CSP_STYLE_SRC=("'self'",)

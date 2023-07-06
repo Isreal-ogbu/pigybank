@@ -63,6 +63,7 @@ class ResponseModelViewSet(ModelViewSet):
             return q
 
     def list(self, request, *args, **kwargs):
+        print("ok")
         try:
             response_data = super().list(request, *args, **kwargs)
             self.response_format["data"] = response_data.data
