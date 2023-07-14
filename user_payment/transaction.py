@@ -82,9 +82,9 @@ def ValidateSuggestedAuth(payload) -> Dict:
                 Misc.updatePayload(payload["suggestedAuth"], payload, pin=payload.get('pin', ''))
             if arg == "address":
                 Misc.updatePayload(payload["suggestedAuth"], payload,
-                                   address={"billingzip": "100218", "billingcity": "IKEJA",
-                                            "billingaddress": "470 Mundet PI", "billingstate": "LAGOS",
-                                            "billingcountry": "NG"})
+                                   address={"billingzip": payload.get('billingzip'), "billingcity": payload.get('billingcity'),
+                                            "billingaddress": payload.get('billingadress'), "billingstate": payload.get('billingstate'),
+                                            "billingcountry": payload.get('billingcountry')})
             res = rave.Card.charge(payload)
             appUser.flwRef = res.get('flwRef', None)
             appUser.save()
@@ -125,4 +125,4 @@ def GenerateToken(payload: Dict) -> Dict:
     res = requests.post(url, headers=headers, data=data)
     if res.status_code == 200:
         return res.json()
-    return res.json()
+    return {}

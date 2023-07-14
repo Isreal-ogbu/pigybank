@@ -4,6 +4,7 @@ from user_payment.models import UserPayment
 
 """Still Under development"""
 
+
 class PaymentSerializers(serializers.Serializer):
     cardno = serializers.CharField(max_length=16, min_length=16)
     cvv = serializers.CharField(max_length=3, min_length=3)
@@ -36,7 +37,9 @@ class SuggestedAuthSeializer(serializers.Serializer):
     billingstate = serializers.CharField(max_length=200, allow_null=True, allow_blank=True)
     billingcountry = serializers.CharField(max_length=200, allow_null=True, allow_blank=True)
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     def validate(self, attrs):
-        if not attrs['pin'] or not attrs['billingzip'] and not attrs['billingcity'] and not attrs['billingaddress'] and not attrs['billingstate'] and not attrs['billingcountry']:
+        if not attrs['pin'] or not attrs['billingzip'] and not attrs['billingcity'] and not attrs['billingaddress'] and \
+                not attrs['billingstate'] and not attrs['billingcountry']:
             raise serializers.ValidationError('User pin or address details required')
         return attrs
