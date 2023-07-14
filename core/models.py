@@ -2,6 +2,7 @@ import uuid
 
 from django.contrib.auth import get_user_model
 from django.db import models
+from socket import socket
 
 User = get_user_model()
 
@@ -22,6 +23,9 @@ class Catagory(models.Model):
 
     def __str__(self):
         return self.name
+
+    def __repr__(self):
+        return f"{self.name}, {self.user}"
 
 
 class Transaction(models.Model):

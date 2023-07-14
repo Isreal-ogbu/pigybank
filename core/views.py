@@ -76,3 +76,12 @@ class TransactionReportApiView(ResponseAPIView):
         serializers = ReportEntrySerializers(instance=data, many=True)
         self.response_format['data'] = serializers.data
         return Response(self.response_format, self.status_code)
+
+
+class TransactionHistory(ResponseModelViewSet):
+    permission_classes = (IsAuthenticated)
+    serializer_class = ReadTransactionSerializers
+    OrderingFiltern = ['-date']
+
+    def get_queryset(self):
+        return self.request.user.transactions.filter(user=self.request.user)

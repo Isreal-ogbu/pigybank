@@ -59,7 +59,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'treblle.middleware.TreblleMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -69,7 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'csp.middleware.CSPMiddleware',
+    'treblle.middleware.TreblleMiddleware',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -201,26 +200,10 @@ REST_KNOX = {
     'AUTH_HEADER_PREFIX': 'Bearer'
 }
 
+TREBLLE_HIDDEN_KEYS = ["id", "email", "password"]
+
 TREBLLE_INFO = {
-    'api_key': config('TREBLLE_API_KEY'),
-    'project_id': config('TREBLLE_PROJECT_ID')
+    "api_key": config('TREBLLE_API_KEY'),
+    "project_id": config('TREBLLE_PROJECT_ID'),
+    "hidden_keys": TREBLLE_HIDDEN_KEYS
 }
-
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_HSTS_SECONDS = 1576800
-X_FRAME_OPTIONS = 'DENY'
-
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-SESSION_COOKIE_SAMESITE = 'Strict'
-
-CSP_DEFAULT_SRC = ("'self'", 'none')
-CSP_STYLE_SRC = ("'self'",)
-CSP_SCRIPT_SRC = ("'self'",)
-CSP_IMG_SRC = ("'self'",)
-CSP_FONT_SRC = ("'self'",)
-CSP_MEDIA_SRC = ("'self'",)
-CSP_BASE_URI = ("'self'",)
