@@ -20,22 +20,21 @@ class UserRecordsViewSet(ResponseModelViewSet):
         serializer = PaymentSerializers(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         params = serializer.save()
-        data = PaymentTransferTransaction(params)
-        return Response({
-            "status": 'Success',
-            "data": data,
-            "message": 'Transaction Successful'
-        }, status=status.HTTP_200_OK)
+        data = PaymentTransferTransaction(params.data)
+        self.response_format['data'] = data
+        return Response(self.response_format, status=self.status_code)
 
 
 class TokenViewSet(ResponseAPIView):
     serializer_class = TokenSerializer
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request, **kwargs):
-        serializer = TokenSerializer(data=request.data, context={'request': request})
+        serializer = self.get_serializer(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         data = serializer.save()
-        data = CardTokenValidation(data)
+        # pass data of the form: token, user, txRef,
+        data = CardTokenValidation(data.data)
         self.response_format['data'] = data
         return Response(self.response_format, status=self.status_code)
 
