@@ -1,8 +1,11 @@
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from core.models import Currency, Catagory, Transaction
 from utils.report import ReportParams
+
+User = get_user_model()
 
 
 class ReadUserSerializers(serializers.ModelSerializer):
@@ -26,7 +29,7 @@ class CatagoryViewSerializer(serializers.ModelSerializer):
 
 
 class WriteTransactionSerializers(serializers.ModelSerializer):
-    """To authomatically serialize authenticated user without send it with the payload"""
+    """To automatically serialize authenticated user without sending it with the payload"""
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     currency = serializers.SlugRelatedField(slug_field="code", queryset=Currency.objects.all())
 

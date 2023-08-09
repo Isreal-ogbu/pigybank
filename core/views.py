@@ -1,13 +1,12 @@
+from django.utils.functional import cached_property
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status
 from rest_framework.filters import OrderingFilter
-from rest_framework.generics import ListAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.views import APIView
+
+from core.mailme import sendMail
 from utils.util import ResponseModelViewSet, ResponseAPIView
 from utils.permissions import SuperAdminPermission, AdminUserPermission, AuthenticatedUserPermission
-
 from core.models import Currency
 from utils.report import transaction_report
 from core.serializers import CurrencySerializers, CatagoryViewSerializer, \
@@ -19,9 +18,11 @@ class CurrencySerializersApiView(ResponseModelViewSet):
     serializer_class = CurrencySerializers
     permission_classes = (SuperAdminPermission,)
 
+
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
-            return [SuperAdminPermission() and AdminUserPermission() and AuthenticatedUserPermission()]
+            sendMail()
+            return [AllowAny()]
         elif self.action in ['create', 'update']:
             return [AdminUserPermission()]
         return super().get_permissions()
@@ -47,6 +48,7 @@ class TransactionViewSetApiView(ResponseModelViewSet):
     ordering_fields = ['date']
     filterset_fields = ['currency__code', "catagory__name", "amount"]
     permission_classes = (SuperAdminPermission,)
+    serializer_class = WriteTransactionSerializers
 
     def get_serializer_class(self):
         if self.action in ('list', 'retrieve'):
@@ -67,6 +69,7 @@ class TransactionViewSetApiView(ResponseModelViewSet):
 
 class TransactionReportApiView(ResponseAPIView):
     permission_classes = (AuthenticatedUserPermission,)
+    serializer_class = ReportParamSerializers
 
     def get(self, request):
         personal_report = ReportParamSerializers(data=request.GET, context={'request': request})
