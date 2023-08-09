@@ -30,7 +30,7 @@ class UserViewSet(ResponseModelViewSet):
     pagination_class = None
 
     def get_queryset(self):
-        return User.objects.filter(id=self.request.user.id).all()
+        return User.objects.get(id=self.request.user.id)
 
 
 class UsersSerializerViewSet(ResponseModelViewSet):
